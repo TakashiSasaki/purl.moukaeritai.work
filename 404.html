@@ -146,6 +146,20 @@
         font-size: 0.92rem;
       }
 
+      .url {
+        margin-top: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .url a {
+        color: var(--text);
+      }
+
       @media (max-width: 520px) {
         .card {
           border-radius: 22px;
@@ -160,6 +174,27 @@
         }
       }
     </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const suggested = new URL(location.pathname + location.search + location.hash, "https://purl.org");
+        const link = document.getElementById("suggested-link");
+        const button = document.getElementById("suggested-button");
+        const urlText = document.getElementById("suggested-url");
+
+        if (link) {
+          link.href = suggested.toString();
+          link.textContent = suggested.toString();
+        }
+
+        if (button) {
+          button.href = suggested.toString();
+        }
+
+        if (urlText) {
+          urlText.textContent = suggested.toString();
+        }
+      });
+    </script>
   </head>
   <body>
     <main>
@@ -171,14 +206,17 @@
         <h1 id="page-title">ページが見つかりません</h1>
         <p>
           そのURLは削除されたか、移動したか、最初から存在していないようです。
-          もしリンクをたどってきたなら、URLの綴りを確認するか、トップに戻ってみてください。
+          代わりに、<code>purl.org</code> をオーソリティにした本来の候補URLを案内します。
+        </p>
+        <p class="url">
+          <a id="suggested-link" href="https://purl.org/">https://purl.org/</a>
         </p>
         <div class="actions">
-          <a class="button primary" href="/">トップへ戻る</a>
+          <a class="button primary" id="suggested-button" href="https://purl.org/">候補URLを開く</a>
           <a class="button secondary" href="javascript:history.back()">前のページへ</a>
         </div>
-        <p class="meta">
-          迷子になったときは、落ち着いて一歩ずつ戻れば大丈夫です。
+        <p class="meta" id="suggested-url">
+          https://purl.org/
         </p>
       </section>
     </main>
