@@ -1,12 +1,14 @@
 # Repository Rules
 
-このリポジトリは GitHub Pages 上で `purl.moukaeritai.work` として公開され、`purl.org` および `purl.archive.org` からの転送先として使われる。
+このリポジトリは GitHub Pages 上で `purl.moukaeritai.work` として公開される。  
+このリポジトリ内のコンテンツがリダイレクト先になるのは `/gag`、`/get-a-grip`、`/ts` のみである。  
+それ以外のリダイレクト先にアクセスしたい場合は、直接 `purl.org` を案内する。
 
 ## Routing Policy
 
 - トップページ `/` の canonical URL は `https://purl.moukaeritai.work/` である。
-- `/` は `https://purl.org/` へ即時リダイレクトする。
-- `/gag`、`/get-a-grip`、`/ts` はそれぞれ `https://purl.org/gag/`、`https://purl.org/get-a-grip/`、`https://purl.org/ts/` へリダイレクトする。
+- `/` は `purl.org` への案内ページとして扱う。
+- `/gag`、`/get-a-grip`、`/ts` は、それぞれ対応する `purl.org` 側の永続URLの案内ページとして扱う。
 - それ以外の存在しないパスは `404.html` を表示する。
 
 ## 404 Handling
