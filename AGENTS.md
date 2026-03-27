@@ -11,6 +11,12 @@
 - 作者名は `Takashi Sasaki` である。
 - 作者のホームページは `https://x.com/TakashiSasaki` である。
 
+## Social Preview
+
+- トップページ `/` には Open Graph と Twitter Card のメタデータを置く。
+- カード画像は `twitter-card.png` を使う。
+- カード文言は `moukaeritai.work` の永続識別子ランディングページであることが伝わる内容にする。
+
 ## Routing Policy
 
 - トップページ `/` の canonical URL は `https://purl.moukaeritai.work/` である。
