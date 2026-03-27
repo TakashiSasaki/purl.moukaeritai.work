@@ -34,6 +34,8 @@
         margin: 0;
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--text);
+        display: flex;
+        flex-direction: column;
         background:
           radial-gradient(circle at top, rgba(122, 162, 255, 0.18), transparent 40%),
           radial-gradient(circle at bottom right, rgba(69, 224, 198, 0.12), transparent 34%),
@@ -41,7 +43,7 @@
       }
 
       main {
-        min-height: 100vh;
+        flex: 1;
         display: grid;
         place-items: center;
         padding: 24px;
@@ -163,6 +165,20 @@
         color: var(--text);
       }
 
+      .site-footer {
+        max-width: min(100%, 720px);
+        margin: 0 auto;
+        padding: 0 24px 24px;
+        color: rgba(174, 183, 209, 0.86);
+        font-size: 0.92rem;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      .site-footer a {
+        color: inherit;
+      }
+
       @media (max-width: 520px) {
         .card {
           border-radius: 22px;
@@ -223,5 +239,9 @@
         </p>
       </section>
     </main>
+    <footer class="site-footer">
+      開発者: Takashi Sasaki
+      <a href="https://x.com/TakashiSasaki">x.com/TakashiSasaki</a>
+    </footer>
   </body>
 </html>

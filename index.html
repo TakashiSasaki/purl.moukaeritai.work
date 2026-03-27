@@ -55,6 +55,8 @@
         margin: 0;
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         color: var(--text);
+        display: flex;
+        flex-direction: column;
         background:
           radial-gradient(circle at top left, rgba(143, 179, 255, 0.18), transparent 28%),
           radial-gradient(circle at bottom right, rgba(110, 231, 216, 0.14), transparent 26%),
@@ -62,7 +64,7 @@
       }
 
       main {
-        min-height: 100vh;
+        flex: 1;
         display: grid;
         place-items: center;
         padding: 24px;
@@ -241,6 +243,20 @@
         color: var(--text);
       }
 
+      .site-footer {
+        max-width: min(100%, 840px);
+        margin: 0 auto;
+        padding: 0 24px 24px;
+        color: rgba(180, 190, 217, 0.86);
+        font-size: 0.92rem;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      .site-footer a {
+        color: inherit;
+      }
+
       code {
         padding: 0.12rem 0.35rem;
         border: 1px solid rgba(255, 255, 255, 0.14);
@@ -412,5 +428,9 @@
         </div>
       </section>
     </main>
+    <footer class="site-footer">
+      開発者: Takashi Sasaki
+      <a href="https://x.com/TakashiSasaki">x.com/TakashiSasaki</a>
+    </footer>
   </body>
 </html>

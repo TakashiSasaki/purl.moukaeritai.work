@@ -10,6 +10,7 @@
 
 - 作者名は `Takashi Sasaki` である。
 - 作者のホームページは `https://x.com/TakashiSasaki` である。
+- 各ページのフッタには、開発者名と `x.com/TakashiSasaki` を載せる。
 
 ## Social Preview
 
