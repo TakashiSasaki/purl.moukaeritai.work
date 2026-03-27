@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>purl.org Wayback 検索</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #08101d;
+        --bg-2: #101a33;
+        --panel: rgba(11, 16, 31, 0.74);
+        --text: #f5f7ff;
+        --muted: #b4bed9;
+        --line: rgba(255, 255, 255, 0.12);
+        --accent: #8fb3ff;
+        --button: #f5f7ff;
+        --button-text: #09111f;
+        --ok: #9be7b3;
+        --warn: #ffd27f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(143, 179, 255, 0.18), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(110, 231, 216, 0.14), transparent 26%),
+          linear-gradient(160deg, var(--bg), var(--bg-2));
+      }
+
+      main {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(100%, 980px);
+        padding: clamp(24px, 5vw, 48px);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--panel);
+        backdrop-filter: blur(18px);
+        box-shadow:
+          0 24px 80px rgba(0, 0, 0, 0.38),
+          0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, var(--accent), #5c7cff);
+        box-shadow: 0 0 22px rgba(143, 179, 255, 0.3);
+      }
+
+      h1 {
+        margin: 22px 0 14px;
+        font-size: clamp(1.9rem, 5vw, 3.4rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        margin: 0;
+        max-width: 60rem;
+        color: var(--muted);
+        font-size: clamp(1rem, 2.1vw, 1.12rem);
+        line-height: 1.75;
+      }
+
+      .panel {
+        margin-top: 30px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: end;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+      }
+
+      .label {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      input {
+        width: 100%;
+        min-height: 50px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        font: inherit;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: rgba(143, 179, 255, 0.7);
+        box-shadow: 0 0 0 4px rgba(143, 179, 255, 0.15);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 18px;
+        border: 1px solid transparent;
+        border-radius: 14px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 160ms ease, box-shadow 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        background: var(--button);
+        color: var(--button-text);
+        box-shadow: 0 12px 30px rgba(255, 255, 255, 0.08);
+      }
+
+      .shortcuts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .shortcut {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .results {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .source-card {
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .source-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .source-title {
+        font-weight: 700;
+      }
+
+      .pill {
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .pill.ok {
+        color: var(--ok);
+      }
+
+      .pill.warn {
+        color: var(--warn);
+      }
+
+      .row {
+        display: grid;
+        gap: 6px;
+      }
+
+      .row + .row {
+        margin-top: 10px;
+      }
+
+      .row-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .row-value {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      a {
+        color: var(--text);
+      }
+
+      .note {
+        margin-top: 18px;
+        color: rgba(180, 190, 217, 0.82);
+        font-size: 0.93rem;
+        line-height: 1.6;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      code {
+        padding: 0.12rem 0.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      @media (max-width: 700px) {
+        .card {
+          border-radius: 22px;
+        }
+
+        .form {
+          grid-template-columns: 1fr;
+        }
+
+        .source-head {
+          align-items: start;
+          flex-direction: column;
+        }
+      }
+    </style>
+    <script>
+      const SOURCES = [
+        { id: "purl", label: "purl.org", base: "https://purl.org" },
+        { id: "archive", label: "purl.archive.org", base: "https://purl.archive.org" },
+      ];
+
+      function normalizePath(input) {
+        const value = input.trim();
+
+        if (!value) {
+          return "/";
+        }
+
+        try {
+          const parsed = new URL(value);
+          return normalizePath(parsed.pathname + parsed.search + parsed.hash);
+        } catch {
+          if (value.startsWith("?") || value.startsWith("#")) {
+            return `/${value}`;
+          }
+
+          if (!value.startsWith("/")) {
+            return `/${value}`;
+          }
+
+          return value;
+        }
+      }
+
+      function buildTarget(base, raw) {
+        return new URL(normalizePath(raw), base).toString();
+      }
+
+      function buildWaybackApi(target) {
+        return `https://archive.org/wayback/available?url=${encodeURIComponent(target)}`;
+      }
+
+      function setSourceState(sourceId, { targetUrl, apiUrl, snapshotUrl, timestamp, status, pill, pillClass }) {
+        const targetEl = document.getElementById(`${sourceId}-target`);
+        const apiEl = document.getElementById(`${sourceId}-api`);
+        const snapshotEl = document.getElementById(`${sourceId}-snapshot`);
+        const timestampEl = document.getElementById(`${sourceId}-timestamp`);
+        const statusEl = document.getElementById(`${sourceId}-status`);
+        const pillEl = document.getElementById(`${sourceId}-pill`);
+
+        targetEl.href = targetUrl;
+        targetEl.textContent = targetUrl;
+        apiEl.href = apiUrl;
+        apiEl.textContent = apiUrl;
+        timestampEl.textContent = timestamp;
+
+        if (snapshotUrl) {
+          snapshotEl.href = snapshotUrl;
+          snapshotEl.textContent = snapshotUrl;
+        } else {
+          snapshotEl.removeAttribute("href");
+          snapshotEl.textContent = "なし";
+        }
+
+        statusEl.textContent = status;
+        pillEl.textContent = pill;
+        pillEl.className = `pill ${pillClass}`;
+      }
+
+      async function inspectSource(source, rawPath) {
+        const targetUrl = buildTarget(source.base, rawPath);
+        const apiUrl = buildWaybackApi(targetUrl);
+
+        setSourceState(source.id, {
+          targetUrl,
+          apiUrl,
+          snapshotUrl: "",
+          timestamp: "調査中...",
+          status: `${source.label} の Wayback スナップショットを確認しています...`,
+          pill: "checking",
+          pillClass: "",
+        });
+
+        try {
+          const response = await fetch(apiUrl, {
+            cache: "no-store",
+            mode: "cors",
+          });
+
+          const data = await response.json();
+          const closest = data?.archived_snapshots?.closest;
+          const available = Boolean(closest?.available);
+
+          setSourceState(source.id, {
+            targetUrl,
+            apiUrl,
+            snapshotUrl: available ? closest.url : "",
+            timestamp: available ? closest.timestamp : "なし",
+            status: available
+              ? `最近のスナップショットを取得しました (HTTP ${closest.status})`
+              : `保存されたスナップショットは見つかりませんでした (HTTP ${response.status})`,
+            pill: available ? "snapshot found" : "no snapshot",
+            pillClass: available ? "ok" : "warn",
+          });
+        } catch (error) {
+          setSourceState(source.id, {
+            targetUrl,
+            apiUrl,
+            snapshotUrl: "",
+            timestamp: "取得不可",
+            status: "Wayback API をブラウザから読めませんでした。API URL を開いて確認してください。",
+            pill: "manual check",
+            pillClass: "warn",
+          });
+        }
+      }
+
+      async function inspectPath(rawPath) {
+        const normalized = normalizePath(rawPath);
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("path", normalized);
+        window.history.replaceState({}, "", `${window.location.pathname}?${searchParams.toString()}`);
+
+        await Promise.all(SOURCES.map((source) => inspectSource(source, normalized)));
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("search-form");
+        const input = document.getElementById("path-input");
+        const params = new URLSearchParams(window.location.search);
+        const initialPath = params.get("path") || "/gag";
+
+        input.value = initialPath;
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          inspectPath(input.value);
+        });
+
+        document.querySelectorAll("[data-path]").forEach((button) => {
+          button.addEventListener("click", () => {
+            input.value = button.getAttribute("data-path") || "";
+            inspectPath(input.value);
+          });
+        });
+
+        inspectPath(initialPath);
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <section class="card" aria-labelledby="page-title">
+        <div class="eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          wayback lookup
+        </div>
+        <h1 id="page-title">purl のパスが Wayback に残っているか調べる</h1>
+        <p class="lead">
+          このページは <code>archive.org/wayback/available</code> を使って、
+          入力したパスが <code>purl.org</code> と <code>purl.archive.org</code> のどちらで保存されているかを確認します。
+          直近のスナップショットだけを返す API なので、一覧ではなく「最近の保存状態」を見るための検索です。
+        </p>
+
+        <div class="panel">
+          <form class="form" id="search-form">
+            <label for="path-input">
+              <span class="label">調べるパス</span>
+              <input id="path-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="/gag" aria-describedby="search-help">
+            </label>
+            <button class="button primary" type="submit">検索する</button>
+          </form>
+
+          <div class="shortcuts" aria-label="よく使うパス">
+            <button class="shortcut" type="button" data-path="/gag">/gag</button>
+            <button class="shortcut" type="button" data-path="/get-a-grip">/get-a-grip</button>
+            <button class="shortcut" type="button" data-path="/ts">/ts</button>
+          </div>
+
+          <div class="results" aria-live="polite">
+            <section class="source-card" aria-labelledby="purl-title">
+              <div class="source-head">
+                <div class="source-title" id="purl-title">purl.org</div>
+                <div class="pill" id="purl-pill">idle</div>
+              </div>
+              <div class="row">
+                <div class="row-label">対象URL</div>
+                <div class="row-value"><a id="purl-target" href="https://purl.org/">https://purl.org/</a></div>
+              </div>
+              <div class="row">
+                <div class="row-label">Wayback API</div>
+                <div class="row-value"><a id="purl-api" href="https://archive.org/wayback/available?url=https%3A%2F%2Fpurl.org%2F">https://archive.org/wayback/available?url=https%3A%2F%2Fpurl.org%2F</a></div>
+              </div>
+              <div class="row">
+                <div class="row-label">最近のスナップショット</div>
+                <div class="row-value"><a id="purl-snapshot" href="#">なし</a></div>
+              </div>
+              <div class="row">
+                <div class="row-label">保存時刻</div>
+                <div class="row-value" id="purl-timestamp">まだ未調査です</div>
+              </div>
+              <div class="row">
+                <div class="row-label">状態</div>
+                <div class="row-value" id="purl-status">検索を実行すると結果が表示されます。</div>
+              </div>
+            </section>
+
+            <section class="source-card" aria-labelledby="archive-title">
+              <div class="source-head">
+                <div class="source-title" id="archive-title">purl.archive.org</div>
+                <div class="pill" id="archive-pill">idle</div>
+              </div>
+              <div class="row">
+                <div class="row-label">対象URL</div>
+                <div class="row-value"><a id="archive-target" href="https://purl.archive.org/">https://purl.archive.org/</a></div>
+              </div>
+              <div class="row">
+                <div class="row-label">Wayback API</div>
+                <div class="row-value"><a id="archive-api" href="https://archive.org/wayback/available?url=https%3A%2F%2Fpurl.archive.org%2F">https://archive.org/wayback/available?url=https%3A%2F%2Fpurl.archive.org%2F</a></div>
+              </div>
+              <div class="row">
+                <div class="row-label">最近のスナップショット</div>
+                <div class="row-value"><a id="archive-snapshot" href="#">なし</a></div>
+              </div>
+              <div class="row">
+                <div class="row-label">保存時刻</div>
+                <div class="row-value" id="archive-timestamp">まだ未調査です</div>
+              </div>
+              <div class="row">
+                <div class="row-label">状態</div>
+                <div class="row-value" id="archive-status">検索を実行すると結果が表示されます。</div>
+              </div>
+            </section>
+          </div>
+
+          <p class="note" id="search-help">
+            ブラウザの CORS 制約で Wayback API を直接読めないことがあります。その場合は API URL を開いて確認してください。
+          </p>
+
+          <div class="links">
+            <a href="/">トップへ戻る</a>
+            <a href="https://archive.org/developers/tutorial-get-snapshot-wayback.html">Wayback API の説明</a>
+            <a href="https://archive.org/wayback/available?url=https%3A%2F%2Fpurl.org%2F">Wayback API を開く</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
