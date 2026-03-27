@@ -1,8 +1,8 @@
 # Repository Rules
 
 このリポジトリは GitHub Pages 上で `purl.moukaeritai.work` として公開される。  
-このリポジトリ内のコンテンツがリダイレクト先になるのは `/gag`、`/get-a-grip`、`/ts` のみである。  
-それ以外のリダイレクト先にアクセスしたい場合は、直接 `purl.org` を案内する。
+このリポジトリ内のコンテンツがリダイレクトの受け皿になるのは `/gag`、`/get-a-grip`、`/ts` のみである。  
+トップページは `purl.org` への案内ページとして扱い、それ以外のリダイレクト先にアクセスしたい場合は直接 `purl.org` を案内する。
 
 ## Routing Policy
 
