@@ -6,6 +6,11 @@
 `/search.html` は `archive.org` の Wayback API を使って、`purl.org` と `purl.archive.org` の保存状況を調べるための専用ページとして扱う。  
 それ以外のリダイレクト先にアクセスしたい場合は直接 `purl.org` を案内する。
 
+## Attribution
+
+- 作者名は `Takashi Sasaki` である。
+- 作者のホームページは `https://x.com/TakashiSasaki` である。
+
 ## Routing Policy
 
 - トップページ `/` の canonical URL は `https://purl.moukaeritai.work/` である。
