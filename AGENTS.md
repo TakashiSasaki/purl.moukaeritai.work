@@ -17,6 +17,12 @@
 - カード画像は `twitter-card.png` を使う。
 - カード文言は `moukaeritai.work` の永続識別子ランディングページであることが伝わる内容にする。
 
+## Cache Policy
+
+- HTML ページには `Cache-Control: no-cache, max-age=600, must-revalidate` を示す `meta http-equiv` を入れる。
+- 開発中は HTML や SNS カード画像の変更が 10 分以内に見直されることを優先する。
+- GitHub Pages の配信ヘッダ自体はこのリポジトリからは制御できない前提で考える。
+
 ## Routing Policy
 
 - トップページ `/` の canonical URL は `https://purl.moukaeritai.work/` である。
