@@ -2,12 +2,12 @@
 
 このリポジトリは GitHub Pages 上で `purl.moukaeritai.work` として公開される。  
 このリポジトリ内のコンテンツがリダイレクトの受け皿になるのは `/gag`、`/get-a-grip`、`/ts` のみである。  
-トップページは `purl.org` への案内ページとして扱い、それ以外のリダイレクト先にアクセスしたい場合は直接 `purl.org` を案内する。
+トップページは `purl.org` への案内兼、入力したパスから `purl.org` 側の行き先を調べるためのページとして扱い、それ以外のリダイレクト先にアクセスしたい場合は直接 `purl.org` を案内する。
 
 ## Routing Policy
 
 - トップページ `/` の canonical URL は `https://purl.moukaeritai.work/` である。
-- `/` は `purl.org` への案内ページとして扱う。
+- `/` は `purl.org` への案内とパス調査のページとして扱う。
 - `/gag`、`/get-a-grip`、`/ts` は、それぞれ対応する `purl.org` 側の永続URLの案内ページとして扱う。
 - それ以外の存在しないパスは `404.html` を表示する。
 

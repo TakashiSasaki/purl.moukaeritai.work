@@ -5,15 +5,390 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="https://purl.moukaeritai.work/">
     <meta name="robots" content="noindex, nofollow">
-    <title>purl.moukaeritai.work</title>
+    <title>moukaeritai.work の永続識別子ランディングページ</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #09111f;
+        --bg-2: #101a33;
+        --panel: rgba(11, 16, 31, 0.72);
+        --text: #f5f7ff;
+        --muted: #b4bed9;
+        --line: rgba(255, 255, 255, 0.12);
+        --accent: #8fb3ff;
+        --accent-2: #6ee7d8;
+        --button: #f5f7ff;
+        --button-text: #09111f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(143, 179, 255, 0.18), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(110, 231, 216, 0.14), transparent 26%),
+          linear-gradient(160deg, var(--bg), var(--bg-2));
+      }
+
+      main {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(100%, 840px);
+        padding: clamp(24px, 5vw, 48px);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--panel);
+        backdrop-filter: blur(18px);
+        box-shadow:
+          0 24px 80px rgba(0, 0, 0, 0.38),
+          0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, var(--accent), #5c7cff);
+        box-shadow: 0 0 22px rgba(143, 179, 255, 0.3);
+      }
+
+      h1 {
+        margin: 22px 0 14px;
+        font-size: clamp(2.4rem, 7vw, 4.8rem);
+        line-height: 0.95;
+        letter-spacing: -0.08em;
+      }
+
+      .lead {
+        margin: 0;
+        max-width: 54rem;
+        color: var(--muted);
+        font-size: clamp(1rem, 2.1vw, 1.12rem);
+        line-height: 1.75;
+      }
+
+      .panel {
+        margin-top: 30px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: end;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+      }
+
+      .label {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      input {
+        width: 100%;
+        min-height: 50px;
+        padding: 0 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        font: inherit;
+        outline: none;
+      }
+
+      input:focus {
+        border-color: rgba(143, 179, 255, 0.7);
+        box-shadow: 0 0 0 4px rgba(143, 179, 255, 0.15);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 18px;
+        border: 1px solid transparent;
+        border-radius: 14px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        background: var(--button);
+        color: var(--button-text);
+        box-shadow: 0 12px 30px rgba(255, 255, 255, 0.08);
+      }
+
+      .shortcuts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .shortcut {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .results {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .result-row {
+        display: grid;
+        gap: 6px;
+      }
+
+      .result-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .result-value {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .result-value a {
+        color: var(--text);
+      }
+
+      .note {
+        margin-top: 18px;
+        color: rgba(180, 190, 217, 0.82);
+        font-size: 0.93rem;
+        line-height: 1.6;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .links a {
+        color: var(--text);
+      }
+
+      code {
+        padding: 0.12rem 0.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      @media (max-width: 640px) {
+        .card {
+          border-radius: 22px;
+        }
+
+        .form {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script>
+      const PURL_BASE = "https://purl.org";
+
+      function normalizePath(input) {
+        const value = input.trim();
+
+        if (!value) {
+          return "/";
+        }
+
+        try {
+          const parsed = new URL(value);
+          return normalizePath(parsed.pathname + parsed.search + parsed.hash);
+        } catch {
+          if (value.startsWith("?") || value.startsWith("#")) {
+            return `/${value}`;
+          }
+
+          if (!value.startsWith("/")) {
+            return `/${value}`;
+          }
+
+          return value;
+        }
+      }
+
+      function canonicalizePath(path) {
+        const [pathname, suffix = ""] = path.split(/([?#].*)/, 2);
+
+        if (pathname === "/" || pathname.endsWith("/") || pathname.includes(".")) {
+          return pathname + suffix;
+        }
+
+        return `${pathname}/${suffix}`;
+      }
+
+      function buildTarget(raw) {
+        const path = canonicalizePath(normalizePath(raw));
+        return new URL(path, PURL_BASE).toString();
+      }
+
+      async function inspectPath(raw) {
+        const candidate = buildTarget(raw);
+        const candidateLink = document.getElementById("candidate-link");
+        const finalUrlEl = document.getElementById("final-url");
+        const statusEl = document.getElementById("status");
+        const openButton = document.getElementById("open-button");
+
+        candidateLink.href = candidate;
+        candidateLink.textContent = candidate;
+        openButton.href = candidate;
+        finalUrlEl.textContent = "調査中...";
+        statusEl.textContent = "purl.org に問い合わせています...";
+
+        try {
+          const response = await fetch(candidate, {
+            cache: "no-store",
+            mode: "cors",
+            redirect: "follow",
+          });
+
+          finalUrlEl.textContent = response.url || candidate;
+          statusEl.textContent = response.redirected
+            ? `最終URLを取得できました (HTTP ${response.status})`
+            : `リダイレクトなしで到達しました (HTTP ${response.status})`;
+        } catch (error) {
+          finalUrlEl.textContent = "ブラウザの制約で最終URLを直接読めませんでした";
+          statusEl.textContent = "CORS などの制約で追跡できませんでした。候補URLを開いて確認してください。";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("probe-form");
+        const input = document.getElementById("path-input");
+        const candidateLink = document.getElementById("candidate-link");
+        const finalUrlEl = document.getElementById("final-url");
+        const statusEl = document.getElementById("status");
+        const openButton = document.getElementById("open-button");
+
+        const defaultCandidate = buildTarget("/");
+        candidateLink.href = defaultCandidate;
+        candidateLink.textContent = defaultCandidate;
+        openButton.href = defaultCandidate;
+        finalUrlEl.textContent = "まだ未調査です";
+        statusEl.textContent = "パスを入力すると調査できます。";
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          inspectPath(input.value);
+        });
+
+        document.querySelectorAll("[data-path]").forEach((button) => {
+          button.addEventListener("click", () => {
+            input.value = button.getAttribute("data-path") || "";
+            inspectPath(input.value);
+          });
+        });
+      });
+    </script>
   </head>
   <body>
-    <p>
-      <a href="https://purl.org/">https://purl.org/</a>
-    </p>
-    <p>
-      このサイトでリダイレクトの受け皿になるのは <code>/gag</code>、<code>/get-a-grip</code>、<code>/ts</code> だけです。
-      トップページは <a href="https://purl.org/">purl.org</a> への案内ページであり、それ以外の永続URLを探すときは直接 purl.org にアクセスしてください。
-    </p>
+    <main>
+      <section class="card" aria-labelledby="page-title">
+        <div class="eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          purl.org path inspector
+        </div>
+        <h1 id="page-title">パスを入れて、purl.org 側の行き先を調べる</h1>
+        <p class="lead">
+          このリポジトリでリダイレクトの受け皿になるのは <code>/gag</code>、<code>/get-a-grip</code>、<code>/ts</code> だけです。
+          それ以外の永続URLを探したい場合は、候補となるパスを入れて <code>purl.org</code> の最終的な行き先を確認してください。
+        </p>
+
+        <div class="panel">
+          <form class="form" id="probe-form">
+            <label for="path-input">
+              <span class="label">調べるパス</span>
+              <input id="path-input" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="/gag" aria-describedby="path-help">
+            </label>
+            <button class="button primary" type="submit">調査する</button>
+          </form>
+          <div class="shortcuts" aria-label="よく使うパス">
+            <button class="shortcut" type="button" data-path="/gag">/gag</button>
+            <button class="shortcut" type="button" data-path="/get-a-grip">/get-a-grip</button>
+            <button class="shortcut" type="button" data-path="/ts">/ts</button>
+          </div>
+
+          <div class="results" aria-live="polite">
+            <div class="result-row">
+              <div class="result-label">候補URL</div>
+              <div class="result-value"><a id="candidate-link" href="https://purl.org/">https://purl.org/</a></div>
+            </div>
+            <div class="result-row">
+              <div class="result-label">最終URL</div>
+              <div class="result-value" id="final-url">まだ未調査です</div>
+            </div>
+            <div class="result-row">
+              <div class="result-label">状態</div>
+              <div class="result-value" id="status">パスを入力すると調査できます。</div>
+            </div>
+          </div>
+
+          <p class="note" id="path-help">
+            ブラウザの CORS 制約で最終URLを読めないことがあります。その場合は候補URLを開いて確認してください。
+          </p>
+
+          <div class="links">
+            <a id="open-button" href="https://purl.org/">候補URLを開く</a>
+            <a href="https://purl.org/">purl.org を開く</a>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
